@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-occ2v(#7fycl*_t3#tzaihzn+rp(_swhk7u9nr_8#hlkhvi6p=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+import os
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME', None)
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if CODESPACE_NAME:
+    ALLOWED_HOSTS.append(f'{CODESPACE_NAME}-8000.app.github.dev')
+ALLOWED_HOSTS.append('*')
 
 
 # Application definition
@@ -137,3 +142,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Use custom user model
+AUTH_USER_MODEL = 'octofit_tracker.User'
